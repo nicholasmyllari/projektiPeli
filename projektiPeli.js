@@ -3,7 +3,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload(){
 
-    game.load.image('coal', 'Sprites/sky.png');
+    game.load.image('coal', 'Sprites/coal.png');
     game.load.image('emerald', 'Sprites/platform.png');
     game.load.image('jumpUp', 'Sprites/star.png');
     game.load.image('jumpDown', 'Sprites/star.png');
@@ -13,6 +13,15 @@ function preload(){
 }
 
 function create() {
+
+    sprite = game.add.sprite(40, 100, 'coal');
+
+    sprite.animations.add('walk');
+
+    sprite.animations.play('walk', 50, true);
+
+    game.add.tween(sprite).to({ x: game.width }, 10000, Phaser.Easing.Linear.None, true);
+
 }
 
 function update() {
