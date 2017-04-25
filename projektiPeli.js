@@ -9,6 +9,7 @@ function preload(){
     game.load.image('silde', 'Sprites/slide.png');
     game.load.spritesheet('dude', 'Sprites/run.png', 34, 48);
     game.load.image('sky', 'Sprites/sky.png');
+    game.load.image('ground', 'Sprites/ground');
 
 }
 
@@ -16,16 +17,13 @@ var platforms;
 
 function create() {
 
-
     game.add.sprite(0, 0, 'sky');
-    sprite = game.add.sprite(40, 100, 'dude');
 
-
-    sprite.animations.add('walk');
-
-    sprite.animations.play('walk', 5, true);
-
-    game.add.tween(sprite).to({ x: game.width }, 10000, Phaser.Easing.Linear.None, true);
+    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    game.physics.arcade.enable(player);
+    player.body.bounce.y = 0.2;
+    player.body.gravity.y = 300;
+    player.body.collideWorldBounds = true;
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -41,5 +39,3 @@ function create() {
 
 function update() {
 }
-//Tänne tulee peli
-
