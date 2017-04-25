@@ -17,7 +17,7 @@ var platforms;
 function create() {
 
 
-
+    game.add.sprite(0, 0, 'sky');
     sprite = game.add.sprite(40, 100, 'dude');
 
 
@@ -28,7 +28,7 @@ function create() {
     game.add.tween(sprite).to({ x: game.width }, 10000, Phaser.Easing.Linear.None, true);
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.add.sprite(0, 0, 'sky');
+
     platforms = game.add.group();
     platforms.enableBody = true;
     ground.scale.setTo(2, 2);
