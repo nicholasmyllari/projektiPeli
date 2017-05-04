@@ -6,15 +6,16 @@ function preload(){
     game.load.image('gem', 'Sprites/gem.png');
  	game.load.spritesheet('jumpUp', 'Sprites/JumpUp.png', 33, 50);
     game.load.spritesheet('fallDown', 'Sprites/fallDown.png', 35, 47);
-    game.load.spritesheet('silde', 'Sprites/slide.png', 45, 37);
+    game.load.spritesheet('slide', 'Sprites/slide.png', 45, 37);
     game.load.spritesheet('dude', 'Sprites/run.png', 34, 48);
-    game.load.spritesheet('grassyGround', 'Sprites/grassNoWhite.png', 67, 76);
+    game.load.spritesheet('grassyGround', 'Sprites/grassAnimation.png', 67, 76);
     game.load.image('sky', 'Sprites/sky.png');
     game.load.image('ground', 'Sprites/ground.png');
 }
 var coals;
 var emeralds;
 var platforms;
+var player;
 
 function create() {
 	//background
@@ -25,6 +26,7 @@ function create() {
     player.body.gravity.y = 600;
     player.body.collideWorldBounds = true;
     player.animations.add('walk', [0,1,2,3,4]);
+    player.animations.play('walk', 20, true);
 
     //storage for the coals and emeralds
     coals = game.add.group();
@@ -44,7 +46,7 @@ function create() {
     grass = game.add.sprite(i * 67, game.world.height - 67, 'grassyGround');
     grass.scale.x *= -1;
     grass.animations.add('move');
-    grass.animations.play('move', 6, true);
+    grass.animations.play('move', 12, true);
     };
 }
 //variables for spawning of coals and emeralds
@@ -61,23 +63,19 @@ function update() {
     var hitPlatform = game.physics.arcade.collide(player, platforms);
     //animation for the player
 	if (player.body.velocity.y < 0) {
-		player.animations.stop();
-		player.loadTexture('jumpUp', 0, false);
+		player.loadTexture('jumpUp', 20, true);
     } else if (player.body.velocity.y > 0) {
-    	player.animations.stop();
-    	player.loadTexture('fallDown', 0, false);
+    	player.loadTexture('fallDown', 20, true);
     } else {
-    	player.loadTexture('dude', 0, false);
-    	player.animations.play('walk', 20, true);
+    	player.loadTexture('dude', 20, true);
     }
 
     //controls
     cursors = game.input.keyboard.createCursorKeys();
     if (cursors.down.isDown && player.body.touching.down && hitPlatform) { //slide
-        player.animations.stop();
+        player.loadTexture('slide', 20, true);
     }
     else if (cursors.up.isDown && player.body.touching.down && hitPlatform) { //jump
-    	player.animations.stop();
         player.body.velocity.y = -350;
     }
     //spawn enemies
