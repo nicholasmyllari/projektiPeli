@@ -4,9 +4,9 @@ function preload(){
 	game.stage.backgroundColor = "#4488AA";
     game.load.image('CoalSprite', 'Sprites/CoalSprite.png');
     game.load.image('gem', 'Sprites/gem.png');
- 	game.load.image('jumpUp', 'Sprites/JumpUp.png');
-    game.load.image('fallDown', 'Sprites/fallDown.png');
-    game.load.image('silde', 'Sprites/slide.png');
+ 	game.load.spritesheet('jumpUp', 'Sprites/JumpUp.png', 33, 50);
+    game.load.spritesheet('fallDown', 'Sprites/fallDown.png', 35, 47);
+    game.load.spritesheet('silde', 'Sprites/slide.png', 45, 37);
     game.load.spritesheet('dude', 'Sprites/run.png', 34, 48);
     game.load.spritesheet('grassyGround', 'Sprites/grassNoWhite.png', 67, 76);
     game.load.image('sky', 'Sprites/sky.png');
@@ -24,7 +24,8 @@ function create() {
     game.physics.arcade.enable(player);
     player.body.gravity.y = 600;
     player.body.collideWorldBounds = true;
-    player.animations.add('walk');
+    player.animations.add('walk', [0,1,2,3,4]);
+
     //storage for the coals and emeralds
     coals = game.add.group();
 	coals.enableBody = true;
@@ -61,9 +62,12 @@ function update() {
     //animation for the player
 	if (player.body.velocity.y < 0) {
 		player.animations.stop();
+		player.loadTexture('jumpUp', 0, false);
     } else if (player.body.velocity.y > 0) {
     	player.animations.stop();
+    	player.loadTexture('fallDown', 0, false);
     } else {
+    	player.loadTexture('dude', 0, false);
     	player.animations.play('walk', 20, true);
     }
 
