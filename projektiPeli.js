@@ -1,7 +1,6 @@
 var game = new Phaser.Game(804, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload(){
-	game.stage.backgroundColor = "#4488AA";
     game.load.image('CoalSprite', 'Sprites/CoalSprite.png');
     game.load.image('gem', 'Sprites/gem.png');
  	game.load.spritesheet('jumpUp', 'Sprites/JumpUp.png', 33, 50);
@@ -16,6 +15,8 @@ var coals;
 var emeralds;
 var platforms;
 var player;
+
+
 
 function create() {
 	//background
@@ -41,7 +42,7 @@ function create() {
     var ground = platforms.create(0, game.world.height - 57, 'ground');
     ground.body.immovable = true;
 
-    //moving grass on top of the ground that the player runs on
+    //moving animation on top of the ground that the player runs on
     for (var i = 12; i >= 0; i--) {
     grass = game.add.sprite(i * 67, game.world.height - 67, 'grassyGround');
     grass.scale.x *= -1;
@@ -90,15 +91,26 @@ function update() {
     last_spawn_timeE = current_time;
     spawnEmerald();
   }
+  game.physics.arcade.overlap(player, coals, collectCoal, null, this);
+  game.physics.arcade.overlap(player, emeralds, collectEmerald, null, this);
 }
 
 function spawnCoal() {
  	var coal = coals.create(700, 400, 'CoalSprite')
  	coal.body.velocity.x = -150;
-}
-
+ 	coal.scale.setTo(0.5,0.5);
+ 	
+};
 function spawnEmerald() {
-	var emerald = emeralds.create(700, 200, 'gem')
+	var emerald = emeralds.create(700, 450, 'gem')
 	emerald.body.velocity.x = -150;
-}
+	emerald.scale.setTo(0.5,0.5);
+};
+
+function collectCoal(player, coal) {
+	coal.kill();
+};
+function collectEmerald(player, emerald) {
+	emerald.kill();
+};
 
