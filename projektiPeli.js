@@ -1,6 +1,14 @@
-var game = new Phaser.Game(804, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(804, 600, Phaser.AUTO, '', {/*preload: preload, create: create, update: update*/ });
 
-function preload(){
+game.state.add('boot', bootState);
+game.state.add('preload', preloadState);
+game.state.add('menu', menuState);
+game.state.add('play', playState);
+game.state.add('gameOver', gameOverState);
+
+game.state.start('boot'); 
+
+/*function preload(){
     game.load.image('CoalSprite', 'Sprites/CoalSprite.png');
     game.load.image('gem', 'Sprites/gem.png');
  	game.load.spritesheet('jumpUp', 'Sprites/JumpUp.png', 33, 50);
@@ -10,15 +18,16 @@ function preload(){
     game.load.spritesheet('grassyGround', 'Sprites/grassAnimation.png', 67, 76);
     game.load.image('sky', 'Sprites/sky.png');
     game.load.image('ground', 'Sprites/ground.png');
-}
+}*/
 var coals;
 var emeralds;
 var platforms;
 var player;
+var coalsCaught;
 
 
 
-function create() {
+/*function create() {
 	//background
     game.add.sprite(0, 0, 'sky');
     //the player and it's physics
@@ -49,7 +58,8 @@ function create() {
     grass.animations.add('move');
     grass.animations.play('move', 12, true);
     };
-}
+}*/
+
 //variables for spawning of coals and emeralds
 var time_til_spawnC = 20000;
 var time_til_spawnE = 20000;
@@ -57,8 +67,7 @@ var last_spawn_timeC = 0;
 var last_spawn_timeE = 0;
 
 
-
-function update() {
+/*function update() {
 
     //  Collide the player and the stars with the platforms
     var hitPlatform = game.physics.arcade.collide(player, platforms);
@@ -93,12 +102,13 @@ function update() {
   }
   game.physics.arcade.overlap(player, coals, collectCoal, null, this);
   game.physics.arcade.overlap(player, emeralds, collectEmerald, null, this);
-}
+}*/
 
 function spawnCoal() {
  	var coal = coals.create(700, 400, 'CoalSprite')
  	coal.body.velocity.x = -150;
  	coal.scale.setTo(0.5,0.5);
+    
  	
 };
 function spawnEmerald() {
@@ -109,7 +119,12 @@ function spawnEmerald() {
 
 function collectCoal(player, coal) {
 	coal.kill();
+    coalsCaught ++ 
+    if(coalsCaught.length >= 1) {
+        game.state.start('gameOver'); 
+        }
 };
+    
 function collectEmerald(player, emerald) {
 	emerald.kill();
 };
