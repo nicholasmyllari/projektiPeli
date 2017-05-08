@@ -9,8 +9,13 @@ var preloadState = {
     game.load.spritesheet('grassyGround', 'Sprites/grassAnimation.png', 67, 76);
     game.load.image('sky', 'Sprites/sky.png');
     game.load.image('ground', 'Sprites/ground.png');
-    var preloadLabel = game.add.text(80, 15, 'loading...', {font: '30px Courier', fill: '#ffffff' });
+    
+    game.load.audio('coalSound', 'Sounds/coalSound.mp3');
+    game.load.audio('emeraldSound', 'Sounds/emeraldSound.mp3');
+    game.load.audio('backgroundMusic', 'Sounds/backgroundMusic.mp3');
+    game.load.audio('jump', 'Sounds/jump.mp3');
 
+        
 },
 
 create: function() {

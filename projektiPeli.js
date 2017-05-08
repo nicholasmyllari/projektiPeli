@@ -26,6 +26,11 @@ var player;
 var coalsCaught;
 
 
+/*variables for sounds*/
+var jump;
+var collision;
+var collect; 
+var music;
 
 /*function create() {
 	//background
@@ -108,9 +113,8 @@ function spawnCoal() {
  	var coal = coals.create(700, 400, 'CoalSprite')
  	coal.body.velocity.x = -150;
  	coal.scale.setTo(0.5,0.5);
-    
- 	
 };
+
 function spawnEmerald() {
 	var emerald = emeralds.create(700, 450, 'gem')
 	emerald.body.velocity.x = -150;
@@ -119,6 +123,8 @@ function spawnEmerald() {
 
 function collectCoal(player, coal) {
 	coal.kill();
+    collision = game.add.audio('coalSound');
+    collision.play();
     coalsCaught ++ 
     if(coalsCaught.length >= 1) {
         game.state.start('gameOver'); 
@@ -127,5 +133,8 @@ function collectCoal(player, coal) {
     
 function collectEmerald(player, emerald) {
 	emerald.kill();
+    collect = game.add.audio('emeraldSound');
+    collect.play();
+    
 };
 

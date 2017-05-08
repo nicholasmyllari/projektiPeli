@@ -1,4 +1,5 @@
 var playState = {
+    
 create: function() {    
     //background
     game.add.sprite(0, 0, 'sky');
@@ -28,10 +29,14 @@ create: function() {
     grass.scale.x *= -1;
     grass.animations.add('move');
     grass.animations.play('move', 12, true);
-    }},
+    } 
+    
+     music = game.add.audio('backgroundMusic');
+        music.play();
+},
     
     update: function() {
-
+        
     //  Collide the player and the stars with the platforms
     var hitPlatform = game.physics.arcade.collide(player, platforms);
     //animation for the player
@@ -50,6 +55,9 @@ create: function() {
     }
     else if (cursors.up.isDown && player.body.touching.down && hitPlatform) { //jump
         player.body.velocity.y = -350;
+        jump = game.add.audio('jump');
+        jump.play();
+
     }
     //spawn enemies
     var current_time = game.time.time;
@@ -70,4 +78,6 @@ create: function() {
     gameOver: function() {
         game.state.start('gameOver');
     }
+    
 };
+
