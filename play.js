@@ -40,6 +40,8 @@ create: function() {
     
      music = game.add.audio('backgroundMusic');
         music.play();
+       
+    
 },
     
     update: function() {
@@ -86,12 +88,12 @@ create: function() {
     spawnEmerald();
     }
     game.physics.arcade.overlap(player, coals, collectCoal, null, this);
+         if (coalMeter >= 4000) {              
+            game.state.start('gameOver');
 
+    }
     game.physics.arcade.overlap(player, emeralds, collectEmerald, null, this);
-    console.log(coalMeter);
-    if (coalMeter > 4000) {
-        game.state.start('gameOver');
-    } 
+   
 },
     gameOver: function() {
         game.state.start('gameOver');

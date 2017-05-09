@@ -28,6 +28,7 @@ var textureTimer;
 var coalMeter;
 
 
+
 /*variables for sounds*/
 var jump;
 var collision;
@@ -128,7 +129,12 @@ function collectCoal(player, coal) {
     collision = game.add.audio('coalSound');
     collision.play();
     coalMeter = coalMeter + 1000;
+    console.log(coalMeter);
+    if (coalMeter >= 4000) {
+        game.state.start('gameOver');
+    }
 };
+
     
 function collectEmerald(player, emerald) {
 	emerald.kill();
@@ -137,4 +143,6 @@ function collectEmerald(player, emerald) {
     coalMeter = coalMeter - 600;
     
 };
+    
+
 

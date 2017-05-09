@@ -1,11 +1,11 @@
 var menuState = {
     
     create: function () {
-        var nameLabel = game.add.text(80, 80, 'My First Game', {
-            font: '25px Arial', fill: '#ffffff', });
+        var nameLabel = game.add.text(80, 80, 'The Nuclear game \n  Collect the nuclear gems and avoid the coals', {
+            font: '25px Arial', fill: '#ffffff', align: 'center' });
         
-        var startLabel = game.add.text(80, game.world.height-80, 'press the "up" key to start', 
-        {font: '25px Arial', fill: '#ffffff'});
+        var startLabel = game.add.text(80, game.world.height-80, 'Press the "up" key to start', 
+        {font: '25px Arial', fill: '#ffffff', align: 'center'});
     
         cursors = game.input.keyboard.createCursorKeys();
         cursors.up.onDown.addOnce(this.start, this);
