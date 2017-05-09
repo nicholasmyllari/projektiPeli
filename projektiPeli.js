@@ -51,7 +51,6 @@ function collectCoal(player, coal) {
     collision = game.add.audio('coalSound');
     collision.play();
     coalMeter = coalMeter + 1000;
-    console.log(coalMeter);
     if (coalMeter >= 4000) {
         game.state.start('gameOver');
     }

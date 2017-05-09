@@ -40,17 +40,10 @@ create: function() {
     grass.animations.add('move');
     grass.animations.play('move', 12, true);
     };
-<<<<<<< HEAD
-    
-     music = game.add.audio('backgroundMusic');
-        music.play();
-       
-    
-=======
+
     jump = game.add.audio('jump');
     music = game.add.audio('backgroundMusic');
     music.play();
->>>>>>> origin/master
 },
     
     update: function() {
@@ -105,15 +98,12 @@ create: function() {
 
     }
     game.physics.arcade.overlap(player, emeralds, collectEmerald, null, this);
-<<<<<<< HEAD
-   
-=======
+
     coalText.text = 'CO2 Level is : ' + coalMeter;
     if (coalMeter > 4000) {
         game.state.start('gameOver');
         endTime = game.time.time;
     } 
->>>>>>> origin/master
 },
     gameOver: function() {
         game.state.start('gameOver');
