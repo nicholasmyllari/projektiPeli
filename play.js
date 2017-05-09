@@ -19,7 +19,7 @@ create: function() {
 	emeralds.enableBody = true;
     
     // coalMeter for the life counter
-    startTime = new Date();
+    points = 0
     coalMeter = 0;
     coalText = game.add.text(500, 60 , 'CO2 Level' + coalMeter, { font: "25px arial", fill: "#FFFFFF", align: "left" });
 
@@ -88,10 +88,12 @@ create: function() {
     spawnCoal();
     }
     coalMeter ++;
+    points ++;
     if(current_time - last_spawn_timeE > time_til_spawnE) {
     time_til_spawnE = Math.random()*3000 + 100;
     last_spawn_timeE = current_time;
     spawnEmerald();
+    points = points + 200;
     }
     game.physics.arcade.overlap(player, coals, collectCoal, null, this);
          if (coalMeter >= 4000) {              
@@ -102,10 +104,9 @@ create: function() {
 
     coalText.text = 'CO2 Level is : ' + coalMeter;
     if (coalMeter > 1000) {
-        endTime = new Date();
         game.state.start('gameOver');
+    };
         
-    } 
 },
     gameOver: function() {
         game.state.start('gameOver');
