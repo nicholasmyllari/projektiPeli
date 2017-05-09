@@ -22,8 +22,10 @@ game.state.start('boot');
 var coals;
 var emeralds;
 var platforms;
+var platforms2;
 var player;
-var coalsCaught;
+var textureTimer;
+var coalMeter;
 
 
 /*variables for sounds*/
@@ -125,16 +127,14 @@ function collectCoal(player, coal) {
 	coal.kill();
     collision = game.add.audio('coalSound');
     collision.play();
-    coalsCaught ++ 
-    if(coalsCaught.length >= 1) {
-        game.state.start('gameOver'); 
-        }
+    coalMeter = coalMeter + 1000;
 };
     
 function collectEmerald(player, emerald) {
 	emerald.kill();
     collect = game.add.audio('emeraldSound');
     collect.play();
+    coalMeter = coalMeter - 600;
     
 };
 
