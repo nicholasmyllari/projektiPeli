@@ -17,8 +17,11 @@ create: function() {
 	coals.enableBody = true;
 	emeralds = game.add.group();
 	emeralds.enableBody = true;
-    coalMeter = 0;
     
+    // coalMeter for the life counter
+    coalMeter = 0;
+    coalText = game.add.text(500, 60 , 'CO2 Level' + coalMeter, { font: "25px arial", fill: "#FFFFFF", align: "left" });
+
     //ground that the player walks on
     platforms = game.add.group();
     platforms.enableBody = true;
@@ -64,10 +67,7 @@ create: function() {
 
     //controls
     cursors = game.input.keyboard.createCursorKeys();
-    if (cursors.down.isDown && player.body.touching.down && hitPlatform) { //slide
-        player.loadTexture('slide', 20, true);
-    }
-    else if (cursors.up.isDown && player.body.touching.down && hitPlatform) { //jump
+    if (cursors.up.isDown && player.body.touching.down && hitPlatform) { //jump
         player.body.velocity.y = -350;
         jump.play();
         textureTimer = 9;
@@ -76,28 +76,28 @@ create: function() {
         jump.play();
         player.body.velocity.y = -250;
         doubleJump = 1;
-        console.log("doubleJump");
     };
     jumpTimer++;
     //spawn enemies
     var current_time = game.time.time;
     if(current_time - last_spawn_timeC > time_til_spawnC) {
-    time_til_spawnC = Math.random()*1000 + 100;
+    time_til_spawnC = Math.random()*700 + 400;
     last_spawn_timeC = current_time;
     spawnCoal();
     }
     coalMeter ++;
     if(current_time - last_spawn_timeE > time_til_spawnE) {
-    time_til_spawnE = Math.random()*2000 + 800;
+    time_til_spawnE = Math.random()*3000 + 100;
     last_spawn_timeE = current_time;
     spawnEmerald();
     }
     game.physics.arcade.overlap(player, coals, collectCoal, null, this);
 
     game.physics.arcade.overlap(player, emeralds, collectEmerald, null, this);
-    console.log(coalMeter);
+    coalText.text = 'CO2 Level is : ' + coalMeter;
     if (coalMeter > 4000) {
         game.state.start('gameOver');
+
     } 
 },
     gameOver: function() {
@@ -105,4 +105,14 @@ create: function() {
     }
     
 };
+
+
+
+    
+    
+    
+
+    
+    
+    
 
