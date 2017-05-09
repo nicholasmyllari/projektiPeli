@@ -9,6 +9,7 @@ var preloadState = {
     game.load.spritesheet('grassyGround', 'Sprites/grassAnimation.png', 67, 76);
     game.load.image('sky', 'Sprites/sky.png');
     game.load.image('ground', 'Sprites/ground.png');
+    game.load.image('meter', 'Sprites/healthBar.png');
     
     game.load.audio('coalSound', 'Sounds/coalSound.mp3');
     game.load.audio('emeraldSound', 'Sounds/emeraldSound.mp3');

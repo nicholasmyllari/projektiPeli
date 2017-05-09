@@ -17,8 +17,11 @@ create: function() {
 	coals.enableBody = true;
 	emeralds = game.add.group();
 	emeralds.enableBody = true;
-    coalMeter = 0;
     
+    // coalMeter for the life counter
+    coalMeter = 0;
+    coalText = game.add.text(500, 60 , 'CO2 Level' + coalMeter, { font: "25px arial", fill: "#FFFFFF", align: "left" });
+
     //ground that the player walks on
     platforms = game.add.group();
     platforms.enableBody = true;
@@ -37,11 +40,17 @@ create: function() {
     grass.animations.add('move');
     grass.animations.play('move', 12, true);
     };
+<<<<<<< HEAD
     
      music = game.add.audio('backgroundMusic');
         music.play();
        
     
+=======
+    jump = game.add.audio('jump');
+    music = game.add.audio('backgroundMusic');
+    music.play();
+>>>>>>> origin/master
 },
     
     update: function() {
@@ -58,6 +67,7 @@ create: function() {
         if(textureTimer == 0){
             player.loadTexture('dude');
             player.animations.play('walk', 20, true);
+            doubleJump = 0;
         };
         
         textureTimer = Math.max(-1, textureTimer - 1);
@@ -65,25 +75,27 @@ create: function() {
 
     //controls
     cursors = game.input.keyboard.createCursorKeys();
-    if (cursors.down.isDown) { //slide
-        player.loadTexture('slide', 20, true);
-    }
-    else if (cursors.up.isDown && player.body.touching.down && hitPlatform) { //jump
+    if (cursors.up.isDown && player.body.touching.down && hitPlatform) { //jump
         player.body.velocity.y = -350;
-        jump = game.add.audio('jump');
         jump.play();
         textureTimer = 9;
+        jumpTimer = 0;
+    } else if (cursors.up.isDown && doubleJump == 0 && jumpTimer > 15) { //double jump
+        jump.play();
+        player.body.velocity.y = -250;
+        doubleJump = 1;
     };
+    jumpTimer++;
     //spawn enemies
     var current_time = game.time.time;
     if(current_time - last_spawn_timeC > time_til_spawnC) {
-    time_til_spawnC = Math.random()*2000 + 2000;
+    time_til_spawnC = Math.random()*700 + 400;
     last_spawn_timeC = current_time;
     spawnCoal();
     }
     coalMeter ++;
     if(current_time - last_spawn_timeE > time_til_spawnE) {
-    time_til_spawnE = Math.random()*5000 + 4000;
+    time_til_spawnE = Math.random()*3000 + 100;
     last_spawn_timeE = current_time;
     spawnEmerald();
     }
@@ -93,11 +105,29 @@ create: function() {
 
     }
     game.physics.arcade.overlap(player, emeralds, collectEmerald, null, this);
+<<<<<<< HEAD
    
+=======
+    coalText.text = 'CO2 Level is : ' + coalMeter;
+    if (coalMeter > 4000) {
+        game.state.start('gameOver');
+
+    } 
+>>>>>>> origin/master
 },
     gameOver: function() {
         game.state.start('gameOver');
     }
     
 };
+
+
+
+    
+    
+    
+
+    
+    
+    
 
