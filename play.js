@@ -19,9 +19,10 @@ create: function() {
 	emeralds.enableBody = true;
     
     // coalMeter for the life counter
+    startTime = new Date();
     coalMeter = 0;
     coalText = game.add.text(500, 60 , 'CO2 Level' + coalMeter, { font: "25px arial", fill: "#FFFFFF", align: "left" });
-    startTime = game.time.time;
+
     //ground that the player walks on
     platforms = game.add.group();
     platforms.enableBody = true;
@@ -100,9 +101,10 @@ create: function() {
     game.physics.arcade.overlap(player, emeralds, collectEmerald, null, this);
 
     coalText.text = 'CO2 Level is : ' + coalMeter;
-    if (coalMeter > 4000) {
+    if (coalMeter > 1000) {
+        endTime = new Date();
         game.state.start('gameOver');
-        endTime = game.time.time;
+        
     } 
 },
     gameOver: function() {
