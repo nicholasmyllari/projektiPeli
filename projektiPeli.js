@@ -26,6 +26,8 @@ var platforms2;
 var player;
 var textureTimer;
 var coalMeter;
+var doubleJump;
+var jumpTimer;
 
 
 /*variables for sounds*/
@@ -112,13 +114,13 @@ var last_spawn_timeE = 0;
 }*/
 
 function spawnCoal() {
- 	var coal = coals.create(700, 400, 'CoalSprite')
+ 	var coal = coals.create(900, Math.random()*200+300, 'CoalSprite')
  	coal.body.velocity.x = -150;
  	coal.scale.setTo(0.5,0.5);
 };
 
 function spawnEmerald() {
-	var emerald = emeralds.create(700, 450, 'gem')
+	var emerald = emeralds.create(900, Math.random()*200+300, 'gem')
 	emerald.body.velocity.x = -150;
 	emerald.scale.setTo(0.5,0.5);
 };

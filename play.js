@@ -37,9 +37,9 @@ create: function() {
     grass.animations.add('move');
     grass.animations.play('move', 12, true);
     };
-    
-     music = game.add.audio('backgroundMusic');
-        music.play();
+    jump = game.add.audio('jump');
+    music = game.add.audio('backgroundMusic');
+    music.play();
 },
     
     update: function() {
@@ -56,6 +56,7 @@ create: function() {
         if(textureTimer == 0){
             player.loadTexture('dude');
             player.animations.play('walk', 20, true);
+            doubleJump = 0;
         };
         
         textureTimer = Math.max(-1, textureTimer - 1);
@@ -63,25 +64,31 @@ create: function() {
 
     //controls
     cursors = game.input.keyboard.createCursorKeys();
-    if (cursors.down.isDown) { //slide
+    if (cursors.down.isDown && player.body.touching.down && hitPlatform) { //slide
         player.loadTexture('slide', 20, true);
     }
     else if (cursors.up.isDown && player.body.touching.down && hitPlatform) { //jump
         player.body.velocity.y = -350;
-        jump = game.add.audio('jump');
         jump.play();
         textureTimer = 9;
+        jumpTimer = 0;
+    } else if (cursors.up.isDown && doubleJump == 0 && jumpTimer > 15) { //double jump
+        jump.play();
+        player.body.velocity.y = -250;
+        doubleJump = 1;
+        console.log("doubleJump");
     };
+    jumpTimer++;
     //spawn enemies
     var current_time = game.time.time;
     if(current_time - last_spawn_timeC > time_til_spawnC) {
-    time_til_spawnC = Math.random()*2000 + 2000;
+    time_til_spawnC = Math.random()*1000 + 100;
     last_spawn_timeC = current_time;
     spawnCoal();
     }
     coalMeter ++;
     if(current_time - last_spawn_timeE > time_til_spawnE) {
-    time_til_spawnE = Math.random()*5000 + 4000;
+    time_til_spawnE = Math.random()*2000 + 800;
     last_spawn_timeE = current_time;
     spawnEmerald();
     }
